@@ -19,6 +19,7 @@ import RestService from "../../../Services/api.service";
 import DropdownItem from "../../Common/DropdownItem/DropdownItem";
 import VideoMediaPlayer from "./TrainingMediaPlayer/VideoMediaPlayer";
 import DynamicTable from "../../Common/DynamicTable/DynamicTable";
+import Feedback from "../../Common/Feedback/Feedback";
 
 const TrainingDetails = ({ location }) => {
     const [trainingDetailsList, setTrainingDetailsList] = useState([]);
@@ -41,7 +42,11 @@ const TrainingDetails = ({ location }) => {
                 },
                 {
                     "description": "Introduction 4"
-                }
+                },
+                {
+                    "description": "Introduction 5"
+                },
+                
             ]
 
         },
@@ -123,6 +128,101 @@ const TrainingDetails = ({ location }) => {
         {
 
             "name": "October Batch C",
+            "topics": [
+                {
+                    "description": "Introduction 1"
+                },
+                {
+                    "description": "Introduction 2"
+                },
+                {
+                    "description": "Introduction 3"
+                },
+                {
+                    "description": "Introduction 4"
+                }
+            ]
+
+        },
+        {
+
+            "name": "October Batch C",
+            "topics": [
+                {
+                    "description": "Introduction 1"
+                },
+                {
+                    "description": "Introduction 2"
+                },
+                {
+                    "description": "Introduction 3"
+                },
+                {
+                    "description": "Introduction 4"
+                }
+            ]
+
+        },
+        {
+
+            "name": "October Batch C",
+            "topics": [
+                {
+                    "description": "Introduction 1"
+                },
+                {
+                    "description": "Introduction 2"
+                },
+                {
+                    "description": "Introduction 3"
+                },
+                {
+                    "description": "Introduction 4"
+                }
+            ]
+
+        },
+        {
+
+            "name": "October Batch C",
+            "topics": [
+                {
+                    "description": "Introduction 1"
+                },
+                {
+                    "description": "Introduction 2"
+                },
+                {
+                    "description": "Introduction 3"
+                },
+                {
+                    "description": "Introduction 4"
+                }
+            ]
+
+        }
+        , {
+
+            "name": "October Batch C",
+            "topics": [
+                {
+                    "description": "Introduction 1"
+                },
+                {
+                    "description": "Introduction 2"
+                },
+                {
+                    "description": "Introduction 3"
+                },
+                {
+                    "description": "Introduction 4"
+                }
+            ]
+
+        },
+        {
+
+            "name": "October Batch D",
             "topics": [
                 {
                     "description": "Introduction 1"
@@ -240,10 +340,43 @@ const TrainingDetails = ({ location }) => {
      
                 <div class="row">
 
-                    <div class="col-9  pl-3 " >
+                    <div class="col-8  pl-3 " >
                         <VideoMediaPlayer />
+                        <div class="tabset">
+ 
+  <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked/>
+  <label for="tab1">Overview</label>
+
+  <input type="radio" name="tabset" id="tab2" aria-controls="rauchbier"/>
+  <label for="tab2">Q&A</label>
+ 
+  <input type="radio" name="tabset" id="tab3" aria-controls="dunkles"/>
+  <label for="tab3">Review</label>
+  
+  <div class="tab-panels">
+    <section id="marzen" class="tab-panel">
+      <h2>6A. Overview</h2>
+      <p><strong>Overall Impression:</strong> An elegant, malty German amber lager with a clean, rich, toasty and bready malt flavor, restrained bitterness, and a dry finish that encourages another drink. The overall malt impression is soft, elegant, and complex, with a rich aftertaste that is never cloying or heavy.</p>
+      <p><strong>History:</strong> As the name suggests, brewed as a stronger “March beer” in March and lagered in cold caves over the summer. Modern versions trace back to the lager developed by Spaten in 1841, contemporaneous to the development of Vienna lager. However, the Märzen name is much older than 1841; the early ones were dark brown, and in Austria the name implied a strength band (14 °P) rather than a style. The German amber lager version (in the Viennese style of the time) was first served at Oktoberfest in 1872, a tradition that lasted until 1990 when the golden Festbier was adopted as the standard festival beer.</p>
+  </section>
+    <section id="rauchbier" class="tab-panel">
+      <h2>6B. Q&A</h2>
+      <p><strong>Overall Impression:</strong>  An elegant, malty German amber lager with a balanced, complementary beechwood smoke character. Toasty-rich malt in aroma and flavor, restrained bitterness, low to high smoke flavor, clean fermentation profile, and an attenuated finish are characteristic.</p>
+      <p><strong>History:</strong> A historical specialty of the city of Bamberg, in the Franconian region of Bavaria in Germany. Beechwood-smoked malt is used to make a Märzen-style amber lager. The smoke character of the malt varies by maltster; some breweries produce their own smoked malt (rauchmalz).</p>
+    </section>
+   
+    <section id="dunkles" class="tab-panel">
+      <Feedback/>
+    </section>
+  </div>
+  
+</div>
+
+
+
+
                     </div>
-                    <div class="col-3 pl-3" style={{ background: "white", border:"1px solid #00000033",borderTopLeftRadius:"10px",borderTopRightRadius:"10px",  width: "100%",background:"#FAFAFA", boxShadow: "#00000033 0px 0px 0px 1px, #00000033 0px 1px 1px -1px, #00000033 0px 1px 0px "}}>
+                    <div class="col-4 pl-3" style={{height:"535px", overflowY:"scroll",border:"1px solid #00000033",borderTopLeftRadius:"10px",borderTopRightRadius:"10px",  background:"#F7F9FA", boxShadow: "#00000033 0px 0px 0px 1px, #00000033 0px 1px 1px -1px, #00000033 0px 1px 0px " }}>
 
                         {training.map((train) => {
                             return (

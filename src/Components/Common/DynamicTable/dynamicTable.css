@@ -8,10 +8,11 @@
   .dynamic-table-wrapper{
     overflow-x: auto;
     min-height: 250px;
+    
   }
   .ng-container {
     padding: 10;
-    background: white;
+    /* background: white; */
     padding: 0px 0px 0px;
     box-shadow: 0px 0px 2px 0px #00000038;
   }
@@ -38,7 +39,7 @@
     vertical-align: bottom;
 }
   .ng-table tbody > tr {
-    background-color: #fff;
+    /* background-color: #fff; */
     border: 1px solid #ececec;
   }
   .ng-table tbody > tr:hover {
@@ -118,8 +119,8 @@
 );
 }
 
-.custom-input input:checked + label:before{
-  /* background-color: #00CCF2;
-  border: 1px solid #00CCF2; */
-}
+/* .custom-input input:checked + label:before{
+  background-color: #00CCF2;
+  border: 1px solid #00CCF2;
+} */
 

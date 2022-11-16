@@ -58,7 +58,7 @@ const headerBarLight = css`
   display: flex;
   justify-content: space-between;
   border-bottom: 2px  #FAFAFA;
-  margin-bottom: 12px;
+  // margin-bottom: 12px;
   padding: 5px;
   font-size: 20px;
 `;
@@ -78,7 +78,7 @@ const displayText = css`
 `;
 
 const accordionContainerLight = css`
-  margin: 20px;
+  margin: 10px;
   color: black;
 `;
 
@@ -86,8 +86,9 @@ const accordionContainerLight = css`
 const headerBarDark = css`
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px solid white;
-  margin-bottom: 12px;
+  border-bottom: 0.1px ridge #1c1d1f;
+  
+  margin-bottom: 10px;
   padding: 5px;
   font-size: 12px !important;
   font-family: 'Montserrat', sans-serif !important;
@@ -96,7 +97,7 @@ const headerBarDark = css`
 `;
 
 const accordionContainerDark = css`
-  margin: 20px;
+  margin: 10px;
   color: #272D3B;
   font-weight: bold
   font-size: 12px !important;

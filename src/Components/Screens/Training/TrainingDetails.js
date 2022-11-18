@@ -217,12 +217,15 @@ const TrainingDetails = ({ location }) => {
         const showHideClassName = show ? "modal d-block" : "modal d-none";
 
         return (
+
             <div className={showHideClassName}>
+               
                 <div className="modal-container">
+                <div style={{marginLeft:"95%",marginTop:"-15px"}}> <a href="javascript:;" className="modal-close" onClick={handleClose}>
+                        X
+                    </a></div>
                     {children}
-                    <a href="javascript:;" className="modal-close" onClick={handleClose}>
-                        close
-                    </a>
+                    
                 </div>
             </div>
         );
@@ -386,7 +389,7 @@ const TrainingDetails = ({ location }) => {
 
 
                 </div>
-                <div class="col-4 pl-3" style={{ height: "535px", overflowY: "scroll", marginLeft: "-12px", marginTop: "-15px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px", background: "#F7F9FA", boxShadow: "#00000033 0px 0px 0px 1px, #00000033 0px 1px 1px -1px, #00000033 0px 1px 0px " }}>
+                <div class="col-4 " style={{ height: "535px", overflowY: "scroll", marginLeft: "-12px", marginTop: "-15px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px", background: "#F7F9FA", boxShadow: "#00000033 0px 0px 0px 1px, #00000033 0px 1px 1px -1px, #00000033 0px 1px 0px " }}>
 
                     {training.map((train) => {
                         return (

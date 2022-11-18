@@ -3,7 +3,7 @@
 // import Rating from '@material-ui/lab/Rating';
 // import Typography from '@material-ui/core/Typography';
 // import Box from '@material-ui/core/Box';
-  
+
 // const Feedback = () => {
 //     const [ratingValue, setRatingValue] = React.useState(0);
 //   return (
@@ -34,14 +34,15 @@ import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
 import Typography from "@material-ui/core/Typography";
+import useToast from "../../../Store/ToastHook";
 const labels = {
- 
+
   1: " not what I expected at all",
 
   2: "Poor, pretty disappointed",
 
   3: "Average",
- 
+
   4: "Good, what I expected",
 
   5: "Excellent, above expectations!"
@@ -58,10 +59,31 @@ const Feedback = () => {
   const [hover, setHover] = React.useState(-1);
   const [hover1, setHover1] = React.useState(-1);
   const [hover2, setHover2] = React.useState(-1);
+  const [comments, setComments] = React.useState('');
+  const Toast = useToast();
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const form =
+    {
+      "contentDeliveryRating": value2,
+      "contentRating": value1,
+      "instructorRating": value,
+      "reviewComments": comments
+    }
+    Toast.success({ message: `Feedback submitted successfully` });
+    console.log(form);
+    setValue(0);
+    setValue1(0);
+    setValue2(0);
+    setComments('');
+  }
   console.log(value);
   console.log(hover);
   console.log(hover2);
+  console.log(comments);
   return (
+  
     <div
       style={{
         border: "1px dotted black",
@@ -70,10 +92,12 @@ const Feedback = () => {
         padding: "20px 20px 20px "
       }}
     >
-      <h4 style={{fontFamily: "udemy sans,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol",
-    fontweight: "700",
-  
-    fontSsize:"20px"}}>How would you rate this course?</h4>
+      <h4 style={{
+        fontFamily: "udemy sans,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol",
+        fontweight: "700",
+
+        fontSsize: "20px"
+      }}>How would you rate this course?</h4>
       <Box
         sx={{
           width: 550,
@@ -86,7 +110,7 @@ const Feedback = () => {
         <Typography >Instructor :</Typography>
 
         <Rating
-      
+
           name="hover-feedback"
           value={value}
           precision={1}
@@ -112,10 +136,10 @@ const Feedback = () => {
           marginTop: "20px"
         }}
       >
-        <Typography >Course :</Typography>
+        <Typography >Content :</Typography>
 
         <Rating
-          
+
           name="hover-feedback1"
           value={value1}
           precision={1}
@@ -141,10 +165,10 @@ const Feedback = () => {
           marginTop: "20px"
         }}
       >
-        <Typography >Content :</Typography>
+        <Typography >Content Delivery:</Typography>
 
         <Rating
-        
+
           name="hover-feedback2"
           value={value2}
           precision={1}
@@ -163,37 +187,41 @@ const Feedback = () => {
       </Box>
 
 
-     <div style={{display:"flex", flexDirection:"column"}}>
-     <div>
-     <textarea
-        rows="5"
-        cols="50"
-        placeholder="Tell us about your own personal experience taking this course. Was it a good match for you?"
-        style={{
-          marginTop: "30px",
-
-          outline: "none",
-          padding: "15px",
-          fontWeight: "400",
-          lineHeight: "1.4",
-          fontSize: "15px",
-          borderRadius: "5px"
-        }}
-      />
-     </div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <div>
-        <button style={{ backgroundColor: "#008CBA", 
-  border: "none",
-  borderRadius:"10px",
-  color: "white",
-  padding: "10px 20px",
-  textAlign: "center",
-  textDecoration: "none",
-  display: "inline-block",
-  fontSize: "16px"}}>Submit</button>
-     </div>
-     </div>
-    
+          <textarea
+            rows="5"
+            cols="50"
+            value={comments}
+            onChange={(e) => setComments(e.target.value)}
+            placeholder="Tell us about your own personal experience taking this course. Was it a good match for you?"
+            style={{
+              marginTop: "30px",
+
+              outline: "none",
+              padding: "15px",
+              fontWeight: "400",
+              lineHeight: "1.4",
+              fontSize: "15px",
+              borderRadius: "5px"
+            }}
+          />
+        </div>
+        <div>
+          <button style={{
+            backgroundColor: "#008CBA",
+            border: "none",
+            borderRadius: "10px",
+            color: "white",
+            padding: "10px 20px",
+            textAlign: "center",
+            textDecoration: "none",
+            display: "inline-block",
+            fontSize: "16px"
+          }} onClick={submitHandler}>Submit</button>
+        </div>
+      </div>
+
     </div>
   );
 }

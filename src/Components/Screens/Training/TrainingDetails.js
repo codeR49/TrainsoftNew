@@ -23,6 +23,7 @@ import "./TrainingMediaPlayer/MediaPlayer.css";
 import DynamicTable from "../../Common/DynamicTable/DynamicTable";
 import Feedback from "../../Common/Feedback/Feedback";
 import { Link } from "@material-ui/core";
+import Qa from "../../Common/QA/Qa";
 const TrainingDetails = ({ location }) => {
     const [trainingDetailsList, setTrainingDetailsList] = useState([]);
     const { spinner } = useContext(AppContext)
@@ -35,6 +36,7 @@ const TrainingDetails = ({ location }) => {
         {
 
             "name": "October Batch Nodejs",
+            "totalsection":"0 / 5 | 10 mint",
             "topics": [
                 {
                     "description": "Introduction 1",
@@ -68,6 +70,7 @@ const TrainingDetails = ({ location }) => {
         {
 
             "name": "October Batch Python",
+            "totalsection":"0 / 4 | 15 mint",
             "topics": [
                 {
                     "description": "Introduction 1",
@@ -95,6 +98,7 @@ const TrainingDetails = ({ location }) => {
         {
 
             "name": "October Batch Ruby",
+            "totalsection":"0 / 4 | 40 mint",
             "topics": [
                 {
                     "description": "Introduction 1",
@@ -122,6 +126,7 @@ const TrainingDetails = ({ location }) => {
         {
 
             "name": "October Batch Java",
+            "totalsection":"0 / 4 | 25 mint",
             "topics": [
                 {
                     "description": "Introduction 1",
@@ -149,6 +154,7 @@ const TrainingDetails = ({ location }) => {
         {
 
             "name": "October Batch C++",
+            "totalsection":"1 / 5 | 30 mint",
             "topics": [
                 {
                     "description": "Introduction 1",
@@ -175,6 +181,8 @@ const TrainingDetails = ({ location }) => {
         {
 
             "name": "October Batch C",
+            "totalsection":"0 / 4 | 50 mint",
+            
             "topics": [
                 {
                     "description": "Introduction 1",
@@ -347,8 +355,8 @@ const TrainingDetails = ({ location }) => {
                 <div class="col-8  pl-3 " style={{ marginTop: "-15px" }}>
                     {/* <VideoMediaPlayer /> */}
                     {vdlink.includes("youtube") ? <VideoMediaPlayer url={vdlink} />
-                        : vdlink.includes("pdf") ? <a href={vdlink} target='_blank' >pdf</a>
-                            : <a href={vdlink} target='_blank'>word file</a>
+                        : vdlink.includes("pdf") ? <iframe  style={{ marginTop: "-2px" }} src={vdlink} width="100%" height="100%" />
+                            : <div style={{height:"auto", width:"200px",padding:"20px 20px",marginLeft:"250px",marginBottom:"50px",marginTop:"40px", border:"1px solid #49167E"}}><a href={vdlink} target='_blank' >Show document</a></div>
 
                     }
                     {
@@ -375,9 +383,7 @@ const TrainingDetails = ({ location }) => {
                                 <p><strong>History:</strong> As the name suggests, brewed as a stronger “March beer” in March and lagered in cold caves over the summer. Modern versions trace back to the lager developed by Spaten in 1841, contemporaneous to the development of Vienna lager. However, the Märzen name is much older than 1841; the early ones were dark brown, and in Austria the name implied a strength band (14 °P) rather than a style. The German amber lager version (in the Viennese style of the time) was first served at Oktoberfest in 1872, a tradition that lasted until 1990 when the golden Festbier was adopted as the standard festival beer.</p>
                             </section>
                             <section id="rauchbier" class="tab-panel">
-                                <h2>6B. Q&A</h2>
-                                <p><strong>Overall Impression:</strong>  An elegant, malty German amber lager with a balanced, complementary beechwood smoke character. Toasty-rich malt in aroma and flavor, restrained bitterness, low to high smoke flavor, clean fermentation profile, and an attenuated finish are characteristic.</p>
-                                <p><strong>History:</strong> A historical specialty of the city of Bamberg, in the Franconian region of Bavaria in Germany. Beechwood-smoked malt is used to make a Märzen-style amber lager. The smoke character of the malt varies by maltster; some breweries produce their own smoked malt (rauchmalz).</p>
+                               <Qa/>
                             </section>
 
 
@@ -396,7 +402,7 @@ const TrainingDetails = ({ location }) => {
                             <>
                                 <div >
 
-                                    <DropdownItem title={train.name} theme="dark" >
+                                    <DropdownItem title={train.name} total={train.totalsection} theme="dark" >
 
 
                                         <DynamicTable  {...{ configuration, sourceData: train.topics }} />

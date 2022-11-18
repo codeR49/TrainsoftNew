@@ -31,7 +31,10 @@ class DropdownItem extends React.Component {
             this.props.theme === "dark" ? headerBarDark : headerBarLight
           }
         >
+          <div  style={{display:"flex",flexDirection:"column" }}>
           <div>{this.props.title}</div>
+          <p className="pt-1 pb-1" style={{fontSize:"10px"}}>{this.props.total}</p>
+          </div>
           <button
             className={
               this.props.theme === "dark"

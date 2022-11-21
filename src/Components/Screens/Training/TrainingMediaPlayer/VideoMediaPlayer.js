@@ -1,4 +1,3 @@
-
 import React from 'react'
 import ReactPlayer from 'react-player'
 import "./MediaPlayer.css"
@@ -12,7 +11,8 @@ const VideoMediaPlayer = ({ url }) => {
           url={url}
           width='100%'
           height="100%"
-          playing
+          playing={true} 
+          loop={true}
           muted={true}
           controls
         />

@@ -24,6 +24,9 @@ import DynamicTable from "../../Common/DynamicTable/DynamicTable";
 import Feedback from "../../Common/Feedback/Feedback";
 import { Link } from "@material-ui/core";
 import Qa from "../../Common/QA/Qa";
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import SummarizeRoundedIcon from '@mui/icons-material/SummarizeRounded';
+
 const TrainingDetails = ({ location }) => {
     const [trainingDetailsList, setTrainingDetailsList] = useState([]);
     const { spinner } = useContext(AppContext)
@@ -36,7 +39,7 @@ const TrainingDetails = ({ location }) => {
         {
 
             "name": "October Batch Nodejs",
-            "totalsection":"0 / 5 | 10 mint",
+            "totalsection": "0 / 5 | 10 mint",
             "topics": [
                 {
                     "description": "Introduction 1",
@@ -70,7 +73,7 @@ const TrainingDetails = ({ location }) => {
         {
 
             "name": "October Batch Python",
-            "totalsection":"0 / 4 | 15 mint",
+            "totalsection": "0 / 4 | 15 mint",
             "topics": [
                 {
                     "description": "Introduction 1",
@@ -98,7 +101,7 @@ const TrainingDetails = ({ location }) => {
         {
 
             "name": "October Batch Ruby",
-            "totalsection":"0 / 4 | 40 mint",
+            "totalsection": "0 / 4 | 40 mint",
             "topics": [
                 {
                     "description": "Introduction 1",
@@ -126,7 +129,7 @@ const TrainingDetails = ({ location }) => {
         {
 
             "name": "October Batch Java",
-            "totalsection":"0 / 4 | 25 mint",
+            "totalsection": "0 / 4 | 25 mint",
             "topics": [
                 {
                     "description": "Introduction 1",
@@ -154,7 +157,7 @@ const TrainingDetails = ({ location }) => {
         {
 
             "name": "October Batch C++",
-            "totalsection":"1 / 5 | 30 mint",
+            "totalsection": "1 / 5 | 30 mint",
             "topics": [
                 {
                     "description": "Introduction 1",
@@ -181,8 +184,8 @@ const TrainingDetails = ({ location }) => {
         {
 
             "name": "October Batch C",
-            "totalsection":"0 / 4 | 50 mint",
-            
+            "totalsection": "0 / 4 | 50 mint",
+
             "topics": [
                 {
                     "description": "Introduction 1",
@@ -227,13 +230,13 @@ const TrainingDetails = ({ location }) => {
         return (
 
             <div className={showHideClassName}>
-               
+
                 <div className="modal-container">
-                <div style={{marginLeft:"95%",marginTop:"-15px"}}> <a href="javascript:;" className="modal-close" onClick={handleClose}>
+                    <div style={{ marginLeft: "95%", marginTop: "-15px" }}> <a href="javascript:;" className="modal-close" onClick={handleClose}>
                         X
                     </a></div>
                     {children}
-                    
+
                 </div>
             </div>
         );
@@ -242,25 +245,25 @@ const TrainingDetails = ({ location }) => {
     const [configuration, setConfiguration] = useState({
         columns: {
 
-            "description": {
+            "contentName": {
                 "title": "Content Name",
                 "sortDirection": null,
                 "sortEnabled": true,
                 isSearchEnabled: false,
                 render: (data) => <Link onClick={() => {
 
-                    if (data.videolink) {
-                        Show(data.videolink)
+                    if (data.contentLink) {
+                        Show(data.contentLink)
                     }
-                    else if (data.documentlink) {
-                        Show(data.documentlink);
-                    }
-                    console.log(data.islast)
-                    showFeedBack(data.islast)
-                    modalF(data.islast);
+                    // else if (data.documentlink) {
+                    //     Show(data.documentlink);
+                    // }
+                    //console.log(data.islast)
+                    showFeedBack(data.last)
+                    modalF(data.last);
 
 
-                }} style={{ cursor: "pointer" }}>{data.description}</Link>
+                }} style={{ cursor: "pointer" }}> {(data.type === "VIDEO" || data.type === "EXTERNAL_LINK") ? <PlayCircleIcon /> : <SummarizeRoundedIcon />} {data.contentName}</Link>
             },
             // "description": {
             //     "title": "Description",
@@ -309,32 +312,32 @@ const TrainingDetails = ({ location }) => {
         clearSelection: false
     });
 
-    // const getTrainingContentsByTrainingSid = async () => {
-    //     try {
-    //         let trainingSid = location.state.sid;
-    //         spinner.show();
-    //         RestService.getTrainingContentsByTrainingSid(trainingSid).then(
-    //             response => {
-    //                 console.log(response.data);
-    //                 setTrainingDetailsList(response.data);
-    //             },
-    //             err => {
-    //                 spinner.hide();
-    //             }
-    //         ).finally(() => {
-    //             spinner.hide();
-    //         });
-    //     } catch (err) {
-    //         console.error("error occur on getSession()", err)
-    //     }
-    // }
+    const getTrainingContentsByTrainingSid = async () => {
+        try {
+            let trainingSid = location.state.sid;
+            spinner.show();
+            RestService.getTrainingContentsByTrainingSid(trainingSid).then(
+                response => {
+                    console.log(response.data.courseSectionResponseTO);
+                    setTrainingDetailsList(response.data.courseSectionResponseTO);
+                },
+                err => {
+                    spinner.hide();
+                }
+            ).finally(() => {
+                spinner.hide();
+            });
+        } catch (err) {
+            console.error("error occur on getSession()", err)
+        }
+    }
 
-    // initialize component
-    // useEffect(() => {
-    //     getTrainingContentsByTrainingSid();
-    // }, [])
-    // console.log(location.state.sid);
-    console.log(feed);
+    //initialize component
+    useEffect(() => {
+        getTrainingContentsByTrainingSid();
+    }, [])
+    console.log(trainingDetailsList);
+    // console.log(feed);
     return (
         <>
             <hr />
@@ -354,18 +357,12 @@ const TrainingDetails = ({ location }) => {
 
                 <div class="col-8  pl-3 " style={{ marginTop: "-15px" }}>
                     {/* <VideoMediaPlayer /> */}
-                    {vdlink.includes("youtube") ? <VideoMediaPlayer url={vdlink} />
-                        : vdlink.includes("pdf") ? <iframe  style={{ marginTop: "-2px" }} src={vdlink} width="100%" height="100%" />
-                            : <div style={{height:"auto", width:"200px",padding:"20px 20px",marginLeft:"250px",marginBottom:"50px",marginTop:"40px", border:"1px solid #49167E"}}><a href={vdlink} target='_blank' >Show document</a></div>
+                    {(vdlink.includes("youtube") || vdlink.includes("mp4")) ? <VideoMediaPlayer url={vdlink} />
+                        : vdlink.includes("pdf") ? <iframe style={{ marginTop: "-2px" }} src={vdlink} width="100%" height="100%" />
+                            : <div style={{ height: "auto", width: "200px", padding: "20px 20px", marginLeft: "250px", marginBottom: "50px", marginTop: "40px", border: "1px solid #49167E" }}><a href={vdlink} target='_blank' >Show document</a></div>
 
                     }
-                    {
-                        feed ? <Modal show={modal}  handleClose={()=> setModal(false)}>
-                      
-                        <Feedback />
-                        
-                    </Modal> : ''
-                    }
+
                     <div class="tabset">
 
                         <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked />
@@ -383,7 +380,7 @@ const TrainingDetails = ({ location }) => {
                                 <p><strong>History:</strong> As the name suggests, brewed as a stronger “March beer” in March and lagered in cold caves over the summer. Modern versions trace back to the lager developed by Spaten in 1841, contemporaneous to the development of Vienna lager. However, the Märzen name is much older than 1841; the early ones were dark brown, and in Austria the name implied a strength band (14 °P) rather than a style. The German amber lager version (in the Viennese style of the time) was first served at Oktoberfest in 1872, a tradition that lasted until 1990 when the golden Festbier was adopted as the standard festival beer.</p>
                             </section>
                             <section id="rauchbier" class="tab-panel">
-                               <Qa/>
+                                <Qa />
                             </section>
 
 
@@ -397,16 +394,23 @@ const TrainingDetails = ({ location }) => {
                 </div>
                 <div class="col-4 " style={{ height: "535px", overflowY: "scroll", marginLeft: "-12px", marginTop: "-15px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px", background: "#F7F9FA", boxShadow: "#00000033 0px 0px 0px 1px, #00000033 0px 1px 1px -1px, #00000033 0px 1px 0px " }}>
 
-                    {training.map((train) => {
+                    {trainingDetailsList.map((train) => {
                         return (
                             <>
                                 <div >
 
-                                    <DropdownItem title={train.name} total={train.totalsection} theme="dark" >
+                                    <DropdownItem title={train.sectionName} total={train.courseContentResposeTOList.length} theme="dark" >
 
 
-                                        <DynamicTable  {...{ configuration, sourceData: train.topics }} />
+                                        <DynamicTable  {...{ configuration, sourceData: train.courseContentResposeTOList }} />
                                     </DropdownItem>
+                                    {
+                                        feed ? <Modal show={modal} handleClose={() => setModal(false)}>
+
+                                            <Feedback sectionsid={train.sid} trainingsid={location.state.sid}   />
+
+                                        </Modal> : ''
+                                    }
                                 </div>
                             </>
                         )
@@ -414,7 +418,7 @@ const TrainingDetails = ({ location }) => {
                 </div>
             </div>
 
-         
+
 
 
         </>

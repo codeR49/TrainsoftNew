@@ -145,7 +145,11 @@ const GLOBELCONSTANT = {
             UNSCHEDULE_SESSION: API_HOST + "update/session/{sessionSid}/{status}/{meetingId}",
             GET_INSTRUCTOR_TRAINING: API_HOST +  "trainer/trainings/{pageNo}/{pageSize}",
             GET_LEARNER_TRAINING: API_HOST +  "learner/trainings",
-            UPDATE_SE_TRAINING : API_HOST + "update/session/{sessionSid}/{status}/{meetingId}"
+            UPDATE_SE_TRAINING : API_HOST + "update/session/{sessionSid}/{status}/{meetingId}",
+            GET_TRAINING_CONTENT_BY_SID : API_HOST_V2 + "get-training-content-by-sid?training_sid"
+        },
+        FEEDBACK: {
+            SUBMIT_FEEDBAK: API_HOST_V2 + "submit-feedback?"
         },
         API: {
             ASSESSMENT: {

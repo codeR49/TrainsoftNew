@@ -97,6 +97,7 @@ const RestService = {
   searchTrainingSession: (trainingSid, name) => AxiosService.get(GLOBELCONSTANT.TRAINING.SEARCH_TRAINING_SESSION.replace("{trainingSid}", trainingSid).replace("{name}", name)),
   unScheduleSession: (sessionSid, status, meetingSid) => AxiosService.post(GLOBELCONSTANT.TRAINING.UNSCHEDULE_SESSION.replace("{sessionSid}", sessionSid).replace("{status}", status).replace("{meetingId}", meetingSid)),
   zoomParticipant: () => AxiosService.get('https://api.zoom.us/v2/users/kumarkanhiya21@gmail.com/meetings?page_size=30&type=live', zoomAuth),
+  getTrainingContentsByTrainingSid: (trainingSid) => AxiosService.get(GLOBELCONSTANT.TRAINING.GET_TRAINING_CONTENT_BY_SID + `=${trainingSid}`),
   // getTrainingByRole: (pageNo,pageSize) => AxiosService.get(GLOBELCONSTANT.TRAINING.PARTICIPANT_BY_ROLE.replace("{pageNo}",pageNo).replace("{pageSize}",pageSize)),
 
   // assessment
@@ -165,6 +166,9 @@ const RestService = {
   updateQuestion: (payload) => AxiosService.put(GLOBELCONSTANT.API.ASSESSMENT.UPDATE_QUESTION, payload),
   getAssUserByVirtualAccountSid: (sid) => AxiosService.get(GLOBELCONSTANT.API.GET_ASSES_USER + sid),
   quitAssessment: (questionSid, virtualAccountSid) => AxiosService.get(GLOBELCONSTANT.API.ASSESSMENT.QUIT_ASSESSMENT + questionSid + "/" + virtualAccountSid),
+
+  //feedback
+storeFeedback: (sectionsid, trainingsid, payload) => AxiosService.post(GLOBELCONSTANT.FEEDBACK.SUBMIT_FEEDBAK + `section-sid=${sectionsid}&training-sid=${trainingsid}`, payload)
 };
 
 export default RestService;

@@ -5,9 +5,9 @@ import { BsModal } from "../../Common/BsUtils";
 import moment from 'moment';
 import { ICN_TRASH, ICN_EDIT } from "../../Common/Icon";
 import { Button } from "../../Common/Buttons/Buttons"
-import { TextArea } from "../../Common/InputField/InputField"
+import { TextArea, DateInput, TimeInput, TextInput } from "../../Common/InputField/InputField"
 import CardHeader from '../../Common/CardHeader'
-import { TextInput } from '../../Common/InputField/InputField'
+
 import SessionList from '../../Common/SessionList/SessionList'
 import RestService from '../../../Services/api.service'
 import useFetch from '../../../Store/useFetch'
@@ -17,6 +17,8 @@ import * as Yup from 'yup';
 import AppContext from '../../../Store/AppContext'
 import DynamicTable from '../../Common/DynamicTable/DynamicTable'
 import DropdownItem from '../../Common/DropdownItem/DropdownItem';
+
+import AddSession from '../Training/Session/AddSession';
 
 const CourseDetails = ({ location }) => {
     const [showhide, setShowhide] = useState('');
@@ -32,6 +34,7 @@ const CourseDetails = ({ location }) => {
 
     const Toast = useToast();
     const [show, setShow] = useState(false);
+    const [show1, setShow1] = useState(true);
     const [sessionList, setSessionList] = useState([]);
     const [document, setDocument] = useState('');
     const [contentTitle, setContentTitle] = useState('');
@@ -288,6 +291,42 @@ const CourseDetails = ({ location }) => {
             spinner.hide();
         }
     }
+    const AddContent = () => {
+        return (
+            <>
+                <form>
+                    <div className="row">
+                        <div className="col-md-12">
+                            {!isEdit && <TextInput name="topic" label="Agenda" />}
+                        </div>
+                        <div className="col-md-12 mb-3">
+                            <TextArea name="agenda" label="Description" />
+                        </div>
+
+                        <div className="col-md-4 ">
+                            <DateInput name="sessionDate" label="Start date" />
+                        </div>
+                        <div className="col-md-4">
+                            <TimeInput name="startTime" placeholder="Select Time" label="Start Time" />
+                        </div>
+                        <div className="col-md-4">
+                            <TimeInput name="endTime" placeholder="Select Time" label="End Time" />
+                        </div>
+                        <div className="col-md-12">
+                            {/* <TextInput name="assets" label="Assets" /> */}
+                            {<div className="col-6 pl-0">
+                                <div><span className="title-sm ">Assets</span></div> <div><input multiple placeholder="Browse File" type="file" /></div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div>
+                        <Button className="btn-block py-2 mt-3" type="submit">Confirm</Button>
+                    </div>
+                </form>
+            </>
+        )
+    }
 
     useEffect(() => {
         getSection();
@@ -312,7 +351,7 @@ const CourseDetails = ({ location }) => {
             /> */}
             <div className="full-w mt-2"></div>
             {contentType === "Add Section" ?
-                
+
                 <BsModal {...{ show, setShow, headerTitle: "Add Section", size: "lg" }}>
                     <div className="">
                         <div>
@@ -339,81 +378,109 @@ const CourseDetails = ({ location }) => {
                 </BsModal>
                 :
                 <BsModal {...{ show, setShow, headerTitle: "Add Content", size: "lg" }}>
-                <div className="">
-                    <Formik>
-                        {({ handleSubmit }) => (<>
-                            <form>
-                                <div className="row mb-3 mx-1">
-                                    <label className="mb-2 label form-label">Content Title</label>
-                                    <TextInput type="text" name="content-title" value={contentTitle} onChange={e => setContentTitle(e.target.value)} />
-                                </div>
-                                <div className="row mb-3 mx-1">
-                                    <label className="mb-2 label form-label">Content Type</label>
-                                    {/* <TextInput name="topicName" label="Content Title" /> */}
-                                    <select name="usertype" className="form-control" onChange={(e) => (handleshowhide(e))} style={{ borderRadius: "30px", backgroundColor: "rgb(248, 250, 251)" }}>
-                                        <option value="">--Select Type--</option>
-                                        <option value="1">Video</option>
-                                        <option value="2">Document</option>
-                                        {/* <option value="3">User Type 3</option> */}
-                                    </select>
-                                </div>
+                    <div className="">
+                        <Formik>
+                            {({ handleSubmit }) => (<>
+                                <form>
+                                    <div >
+                                        <label className="mb-2 label form-label">Content Title</label>
+                                        <TextInput type="text" name="content-title" value={contentTitle} onChange={e => setContentTitle(e.target.value)} />
+                                    </div>
+                                    <div className="row mb-3 mx-1">
+                                        <label className="mb-2 label form-label">Content Type</label>
+                                        {/* <TextInput name="topicName" label="Content Title" /> */}
+                                        <select name="usertype" className="form-control" onChange={(e) => (handleshowhide(e))} style={{ borderRadius: "30px", backgroundColor: "rgb(248, 250, 251)" }}>
+                                            <option value="">--Select Type--</option>
+                                            <option value="1">Video</option>
+                                            <option value="2">Document</option>
+                                            <option value="3">Meeting</option>
+                                        </select>
+                                    </div>
 
-                                {
-                                    showhide === '1' && (
-                                        <>
-                                            <div className='row'>
-                                                <div className="col-md-5 mx-1 ">
-                                                    <label className="mb-2 label form-label">Video Link</label>
+                                    {
+                                        showhide === '1' && (
+                                            <>
+                                                <div className='row'>
+                                                    <div className="col-md-5 mx-1 ">
+                                                        <label className="mb-2 label form-label">Video Link</label>
 
-                                                    <input name="address1" type="url" placeholder='url' onChange={e => setVideoLink(e.target.value)} className="form-control" style={{ borderRadius: "30px", backgroundColor: "rgb(248, 250, 251)" }} />
+                                                        <input name="address1" type="url" placeholder='url' onChange={e => setVideoLink(e.target.value)} className="form-control" style={{ borderRadius: "30px", backgroundColor: "rgb(248, 250, 251)" }} />
 
+                                                    </div>
+                                                    <span> Or</span>
+                                                    <div className="col-md-5  mx-1 mb-3">
+                                                        <label className="mb-2 label form-label">Video Upload</label>
+
+                                                        <input type="file" name="address1" className="form-control" onChange={e => setVideoUpload(e.target.files[0])} style={{ borderRadius: "30px", backgroundColor: "rgb(248, 250, 251)" }} />
+                                                    </div>
                                                 </div>
-                                                <span> Or</span>
-                                                <div className="col-md-5  mx-1 mb-3">
-                                                    <label className="mb-2 label form-label">Video Upload</label>
+                                            </>
+                                        )}
 
-                                                    <input type="file" name="address1" className="form-control" onChange={e => setVideoUpload(e.target.files[0])} style={{ borderRadius: "30px", backgroundColor: "rgb(248, 250, 251)" }} />
-                                                </div>
+                                    {
+                                        showhide === '2' && (
+                                            <div className="row form-group mx-1 mb-3">
+                                                <label className="mb-2 label form-label">Document</label>
+                                                <input name="file" type="file" className="form-control" onChange={e => setDocument(e.target.files[0])} style={{ borderRadius: "30px", backgroundColor: "rgb(248, 250, 251)" }}></input>
                                             </div>
-                                        </>
-                                    )}
+                                        )}
 
-                                {
-                                    showhide === '2' && (
-                                        <div className="row form-group mx-1 mb-3">
-                                            <label className="mb-2 label form-label">Document</label>
-                                            <input name="file" type="file" className="form-control" onChange={e => setDocument(e.target.files[0])} style={{ borderRadius: "30px", backgroundColor: "rgb(248, 250, 251)" }}></input>
-                                        </div>
-                                    )}
+                                    {
+                                        showhide === '3' && (
+                                            <div className="col-md-12 form-group">
+                                                <form>
+                                                    <div className="row">
+                                                        <div className="col-md-12">
+                                                            {!isEdit && <TextInput name="topic" label="Agenda" />}
+                                                        </div>
+                                                        <div className="col-md-12 mb-3">
+                                                            <TextArea name="agenda" label="Description" />
+                                                        </div>
 
-                                {/* {
-         showhide==='3' && (
-         <div className="col-md-12 form-group">
-        <label className="mb-2">User Address 3</label>
-        <textarea name="address3" className="form-control"></textarea>
-       </div>
-         ) } */}
-                                {/* <TextArea name="topicDescription" label="Description" /> */}
-                                <div className="text-right mt-2">
-                                    <Button type="submit" className=" px-4" onClick={createUploadCourseSection}>Add </Button>
-                                </div>
-                            </form>
-                        </>)}
-                    </Formik>
+                                                        <div className="col-md-4 ">
+                                                            <DateInput name="sessionDate" label="Start date" />
+                                                        </div>
+                                                        <div className="col-md-4">
+                                                            <TimeInput name="startTime" placeholder="Select Time" label="Start Time" />
+                                                        </div>
+                                                        <div className="col-md-4">
+                                                            <TimeInput name="endTime" placeholder="Select Time" label="End Time" />
+                                                        </div>
+                                                        <div className="col-md-12">
+                                                            {/* <TextInput name="assets" label="Assets" /> */}
+                                                            {<div className="col-6 pl-0">
+                                                                <div><span className="title-sm ">Assets</span></div> <div><input multiple placeholder="Browse File" type="file" /></div>
+                                                            </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <Button className="btn-block py-2 mt-3" type="submit">Confirm</Button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        )}
+                                    {/* <TextArea name="topicDescription" label="Description" /> */}
+                                    <div className="text-right mt-2" >
+                                        {showhide === '3' ? "" : <Button type="submit" className=" px-4" onClick={createUploadCourseSection}>Add </Button>}
+                                        
+                                    </div>
+                                </form>
+                            </>)}
+                        </Formik>
 
-                </div>
-            </BsModal>
+                    </div>
+                </BsModal>
             }
 
-
             {/* <DynamicTable {...{ configuration, sourceData: sessionList, onPageChange: (e) => getSection(e) }} /> */}
-            <div style={{  width: "100%",background:"#FAFAFA"}}>
+            <div style={{ width: "100%", background: "#FAFAFA" }}>
                 {sessionList.map((item) => {
                     return (
                         <>
                             <DropdownItem title={item.sectionName} theme="dark">
                                 <Button className=" ml-2 mb-2" onClick={() => { setShow(true); setContentType("Add Content") }}>Add Content</Button>
-                                <DynamicTable  {...{ configuration, sourceData: item.courseContentResposeTOList, onPageChange: (e) => getSection(e) }}  />
+                                <DynamicTable  {...{ configuration, sourceData: item.courseContentResposeTOList, onPageChange: (e) => getSection(e) }} />
                             </DropdownItem>
                         </>
                     )
@@ -421,8 +488,12 @@ const CourseDetails = ({ location }) => {
                 {/* <DropdownItem title="Item 4" theme="dark">
                     <DynamicTable {...{ configuration, sourceData: sessionList, onPageChange: (e) => getSection(e) }} />
                 </DropdownItem> */}
-            </div>
 
+            </div>
+            <div>
+                {/* <button onClick={AddContent}>meet</button> */}
+            </div>
+            {/* <AddSession {...{show1, setShow1, title: "Meet"}} /> */}
         </div>
     </>)
 }

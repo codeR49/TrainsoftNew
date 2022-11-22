@@ -359,7 +359,7 @@ const TrainingDetails = ({ location }) => {
                     {/* <VideoMediaPlayer /> */}
                     {(vdlink.includes("youtube") || vdlink.includes("mp4")) ? <VideoMediaPlayer url={vdlink} />
                         : vdlink.includes("pdf") ? <iframe style={{ marginTop: "-2px" }} src={vdlink} width="100%" height="100%" />
-                            : <div style={{ height: "auto", width: "200px", padding: "20px 20px", marginLeft: "250px", marginBottom: "50px", marginTop: "40px", border: "1px solid #49167E" }}><a href={vdlink} target='_blank' >Show document</a></div>
+                            : <div  style={{width:"130px",textAlign:"center", textDecoration:"none",color:"white", padding: "15px 20px", marginLeft: "280px", marginBottom: "50px", marginTop: "40px", border: "1px solid #49167E", borderRadius:"10px" }}><a href="/class" target='_blank' >Join Now</a></div>
 
                     }
 
